@@ -58,7 +58,7 @@ Path params:
 `id`
 Request body:
 Response object:
-```json
+```
 {
   reviews: [
     {...}, {...}, {
