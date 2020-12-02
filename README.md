@@ -41,22 +41,22 @@ npm install
 # Ricky's CRUD API:
 
 Method:
-`POST`
+`POST`  
 Endpoint:
-`/api/review-listings/post`
+`/api/review-listings/post`  
 Path params:
-`none`
-Request body:
-Response object:
+`none`  
+Request body:  
+Response object:  
 
 Method:
-`GET`
+`GET`  
 Endpoints:
-`/api/review-listings/reviews`
+`/api/review-listings/reviews`  
 `/api/review-listings/:id/reviews`
 Path params:
-`id`
-Request body:
+`id`  
+Request body:  
 Response object:
 ```
 {
@@ -86,20 +86,20 @@ Response object:
   ],
   id: 1
 }
-```
+```  
 
 Method:
-`PUT`
+`PUT`  
 Endpoint: 
-`/api/review-listings/reviews/:id/update`
-Path params:
-Request body:
-Response object:
+`/api/review-listings/reviews/:id/update`  
+Path params:  
+Request body:  
+Response object:  
 
 Method:
-`DELETE`
+`DELETE`  
 Endpoint: 
-`/api/review-listings/reviews/:id/delete`
-Path params:
-Request body:
-Response object:
+`/api/review-listings/reviews/:id/delete`  
+Path params:  
+Request body:  
+Response object:  
