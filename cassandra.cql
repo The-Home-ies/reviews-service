@@ -31,6 +31,7 @@ WITH comment = 'Q2. Find a review by id';
 CREATE TABLE reviews.reviews_by_customer (
   review_id int,
   customer_id int,
+  name text,
   posting_date text,
   text text,
   cleanliness int,
@@ -39,5 +40,20 @@ CREATE TABLE reviews.reviews_by_customer (
   accuracy int,
   location int,
   value int 
-  PRIMARY KEY (customer_id) 
+  PRIMARY KEY (customer_id, name, review_id) 
 WITH comment = 'Q3. Find a review by customer';
+
+CREATE TABLE reviews.reviews_by_listing (
+  review_id int,
+  listing_id int,
+  address text,
+  posting_date text,
+  text text,
+  cleanliness int,
+  communication int,
+  check_in int,
+  accuracy int,
+  location int,
+  value int 
+  PRIMARY KEY (listing_id, address, review_id) 
+WITH comment = 'Q4. Find a review by listing';

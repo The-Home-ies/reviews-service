@@ -4,11 +4,12 @@ const listingsWriter = csvWriter();
 const customersWriter = csvWriter();
 const reviewsWriter = csvWriter();
 const reviewsByCustomerWriter = csvWriter();
+const reviewsByListingWriter = csvWriter();
 const faker = require('faker');
 const debug = require('debug')('app:gen:psql');
 
 const generateListings = () => {
-    listingsWriter.pipe(fs.createWriteStream('csvData/listings.csv'));
+    listingsWriter.pipe(fs.createWriteStream('csvData/cassandraCsvData/listings.csv'));
     for (let i = 1; i <= 10; i++) {
         listingsWriter.write({
             listing_id: i,
@@ -21,7 +22,7 @@ const generateListings = () => {
 }
 
 const generateCustomers = () => {
-    customersWriter.pipe(fs.createWriteStream('csvData/customers.csv'));
+    customersWriter.pipe(fs.createWriteStream('csvData/cassandraCsvData/customers.csv'));
     for (let i = 1; i <= 10; i++) {
         customersWriter.write({
             customer_id: i,
@@ -36,7 +37,7 @@ const generateCustomers = () => {
 }
 
 const generateReviews = () => {
-    reviewsWriter.pipe(fs.createWriteStream('csvData/reviews.csv'));
+    reviewsWriter.pipe(fs.createWriteStream('csvData/cassandraCsvData/reviews.csv'));
     var range = {
         'min': 1,
         'max': 5
@@ -59,7 +60,7 @@ const generateReviews = () => {
 }
 
 const generateReviewsByCustomer = () => {
-    reviewsByCustomerWriter.pipe(fs.createWriteStream('csvData/reviewsByCustomer.csv'));
+    reviewsByCustomerWriter.pipe(fs.createWriteStream('csvData/cassandraCsvData/reviewsByCustomer.csv'));
     var range = {
         'min': 1,
         'max': 5
@@ -68,6 +69,7 @@ const generateReviewsByCustomer = () => {
         reviewsByCustomerWriter.write({
             review_id: i,
             customer_id: i,
+            name: `${faker.name.firstName()} ${faker.name.lastName()}`,
             posting_date: faker.date.past(1),
             text: faker.lorem.sentences(),
             cleanliness: faker.random.number(range),
@@ -82,12 +84,38 @@ const generateReviewsByCustomer = () => {
     console.log('generated reviews by customer');
 }
 
+const generateReviewsByListing = () => {
+    reviewsByListingWriter.pipe(fs.createWriteStream('csvData/cassandraCsvData/reviewsByListing.csv'));
+    var range = {
+        'min': 1,
+        'max': 5
+    };
+    for (let i = 1; i <= 10; i++) {
+        reviewsByListingWriter.write({
+            review_id: i,
+            listing_id: i,
+            addres: `${faker.address.streetAddress()} St. ${faker.address.city()}, ${faker.address.state()}, ${faker.address.zipCode()}`,
+            posting_date: faker.date.past(1),
+            text: faker.lorem.sentences(),
+            cleanliness: faker.random.number(range),
+            communication: faker.random.number(range),
+            check_in: faker.random.number(range),
+            accuracy: faker.random.number(range),
+            location: faker.random.number(range),
+            value: faker.random.number(range)
+        });
+    }
+    reviewsByListingWriter.end();
+    console.log('generated reviews by customer');
+}
+
 async function dataGenerator() {
     debug('start');
     await generateListings();
     await generateCustomers();
     await generateReviews();
     await generateReviewsByCustomer();
+    await generateReviewsByListing();
 }
 
 dataGenerator();

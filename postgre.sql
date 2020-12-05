@@ -26,7 +26,10 @@ CREATE TABLE customers (
     email VARCHAR(50) NOT NULL,
     avatar_url VARCHAR(50) NOT NULL,
     listing_id INT NOT NULL,
-    PRIMARY KEY(customer_id)
+    PRIMARY KEY(customer_id),
+    CONSTRAINT fk_listing
+        FOREIGN KEY (listing_id)
+            REFERENCES listings(listing_id)
 );
 
 CREATE TABLE reviews (
@@ -41,78 +44,82 @@ CREATE TABLE reviews (
     value INT,
     PRIMARY KEY (review_id),
     author_id INT,
+    listing_id INT,
     CONSTRAINT fk_author
         FOREIGN KEY (author_id)
-            REFERENCES customers(customer_id)
+            REFERENCES customers(customer_id),
+    CONSTRAINT fk_listing
+        FOREIGN KEY (listing_id)
+            REFERENCES listings(listing_id)
 );
 
-INSERT INTO customers (
-        name,
-        email,
-        avatar_url,
-        listing_id
-    ) VALUES (
-            'Ricky Marasigan',
-            'rickysoliman@gmail.com',
-            'https://image.url',
-            1
-);
+-- INSERT INTO customers (
+--         name,
+--         email,
+--         avatar_url,
+--         listing_id
+--     ) VALUES (
+--             'Ricky Marasigan',
+--             'rickysoliman@gmail.com',
+--             'https://image.url',
+--             1
+-- );
 
-INSERT INTO customers (
-        name,
-        email,
-        avatar_url,
-        listing_id
-    ) VALUES (
-            'Suzzy Win',
-            'suzinwin@bu.edu',
-            'https://image.url',
-            2
-);
+-- INSERT INTO customers (
+--         name,
+--         email,
+--         avatar_url,
+--         listing_id
+--     ) VALUES (
+--             'Suzzy Win',
+--             'suzinwin@bu.edu',
+--             'https://image.url',
+--             2
+-- );
 
-INSERT INTO reviews (
-        posting_date,
-        text,
-        cleanliness,
-        communication,
-        check_in,
-        accuracy,
-        location,
-        value,
-        author_id
-    ) VALUES (
-            '2020-12-24',
-            'This was a nice place to stay.',
-            5,
-            5,
-            5,
-            5,
-            5,
-            5,
-            1
-);
+-- INSERT INTO reviews (
+--         posting_date,
+--         text,
+--         cleanliness,
+--         communication,
+--         check_in,
+--         accuracy,
+--         location,
+--         value,
+--         author_id
+--     ) VALUES (
+--             '2020-12-24',
+--             'This was a nice place to stay.',
+--             5,
+--             5,
+--             5,
+--             5,
+--             5,
+--             5,
+--             1
+-- );
 
-INSERT INTO reviews (
-        posting_date,
-        text,
-        cleanliness,
-        communication,
-        check_in,
-        accuracy,
-        location,
-        value,
-        author_id
-    ) VALUES (
-            '2020-12-24',
-            'This was a nice place to stay.',
-            5,
-            5,
-            5,
-            5,
-            5,
-            5,
-            2
-);
+-- INSERT INTO reviews (
+--         posting_date,
+--         text,
+--         cleanliness,
+--         communication,
+--         check_in,
+--         accuracy,
+--         location,
+--         value,
+--         author_id
+--     ) VALUES (
+--             '2020-12-24',
+--             'This was a nice place to stay.',
+--             5,
+--             5,
+--             5,
+--             5,
+--             5,
+--             5,
+--             2
+-- );
 
-SELECT * FROM customers;
-SELECT * FROM reviews;
+-- SELECT * FROM customers;
+-- SELECT * FROM reviews;
