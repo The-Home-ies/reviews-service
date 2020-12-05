@@ -1,10 +1,10 @@
 # CRUD API:
 
 ### **Create a review**
-  * POST `/api/review-listings/:id/reviews`
+  * POST `/api/listings/:listing_id/reviews`
 
 **Path Parameters:**
-  * `id` listing id
+  * `listing_id` listing id
 
 **Success Status Code:** `201`
 
@@ -15,7 +15,6 @@
       "name": "String",
       "email": "String",
       "avatar_url": "String",
-      "address": "String",
       "listing_id": "Number",
       "text": "String",
       "date": "String",
@@ -32,10 +31,10 @@
 
 
 ### **Get a listing's reviews**
-  * GET `/api/review-listings/:id/reviews`  
+  * GET `/api/listings/:listing_id/reviews`  
 
 **Path Parameters:**
-  * `id` listing id
+  * `listing_id` listing id
 
 **Success Status Code:** `200`
 
@@ -43,11 +42,11 @@
 
 ```json
     {
-      "id": "Number",
+      "listing_id": "Number",
       "address": "String",
       "reviews": [{
         "review": {
-          "listing_id": "Number",
+          "reviews_id": "Number",
           "text": "String",
           "date": "String"
         },
@@ -70,11 +69,11 @@
 
 
 ### **Update review info**
-  * PUT `/api/review-listings/:id/reviews/:id`
+  * PUT `/api/listings/:listing_id/reviews/:reviews_id`
 
 **Path Parameters:**
-  * `id` listing id
-  * `id` review id
+  * `listing_id` listing id
+  * `reviews_id` review id
 
 **Success Status Code:** `204`
 
@@ -96,10 +95,10 @@
 
 
 ### **Delete review**
-  * DELETE `/api/review-listings/:id/reviews/:id`
+  * DELETE `/api/listings/:listing_id/reviews/:reviews_id`
 
 **Path Parameters:**
-  * `id` listing id
-  * `id` review id
+  * `listing_id` listing id
+  * `reviews_id` review id
 
 **Success Status Code:** `204`
