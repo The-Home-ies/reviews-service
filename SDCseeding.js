@@ -18,8 +18,6 @@ var generateListings = () => {
     console.log('generated listings');
 }
 
-// generateListings();
-
 const generateCustomers = () => {
     writer.pipe(fs.createWriteStream('csvData/customers.csv'));
 
@@ -36,8 +34,6 @@ const generateCustomers = () => {
     writer.end();
     console.log('generated customers');
 }
-
-// generateCustomers();
 
 const generateReviews = () => {
     writer.pipe(fs.createWriteStream('csvData/reviews.csv'));
@@ -62,24 +58,6 @@ const generateReviews = () => {
     writer.end();
     console.log('generated reviews');
 }
-
-// generateReviews();
-
-/*
-CREATE TABLE reviews.reviews_by_customer (
-  review_id int,
-  customer_id int,
-  posting_date text,
-  text text,
-  cleanliness int,
-  communication int,
-  check_in int,
-  accuracy int,
-  location int,
-  value int 
-  PRIMARY KEY (customer_id) 
-WITH comment = 'Q3. Find a review by customer';
-*/
 
 const generateReviewsByCustomer = () => {
     writer.pipe(fs.createWriteStream('csvData/reviewsByCustomer.csv'));
@@ -106,6 +84,9 @@ const generateReviewsByCustomer = () => {
     console.log('generated reviews by customer');
 }
 
+generateListings();
+generateCustomers();
+generateReviews();
 generateReviewsByCustomer();
 
 /*
