@@ -9,73 +9,6 @@ const dataArrays = require('./dataArrays.js');
 
 var numOfRecords = 10000000;
 
-// const generateListings = () => {
-//     listingsWriter.pipe(fs.createWriteStream('csvData/postgresCsvData/listings.csv'));
-//     for (let i = 1; i <= numOfRecords; i++) {
-//         listingsWriter.write({
-//             listing_id: i,
-//             address: data.addresses[i % data.addresses.length],
-//             owner: data.owners[i % data.owners.length]
-//         });
-//     }
-//     listingsWriter.end();
-//     console.log('generated listings');    
-// }
-
-// const generateCustomers = () => {
-//     customersWriter.pipe(fs.createWriteStream('csvData/postgresCsvData/customers.csv'));
-//     for (let i = 1; i <= numOfRecords; i++) {
-//         customersWriter.write({
-//             customer_id: i,
-//             name: data.customers[i % data.customers.length],
-//             email: data.emails[i % data.emails.length],
-//             avatar_url: 'http://placeimg.com/640/480',
-//             listing_id: data.ids[i % data.ids.length]
-//         });
-//     }
-//     customersWriter.end();
-//     console.log('generated customers');
-// }
-
-// const generateReviews = () => {
-//     reviewsWriter.pipe(fs.createWriteStream('csvData/postgresCsvData/reviews.csv'));
-//     for (let i = 1; i <= numOfRecords; i++) {
-//         reviewsWriter.write({
-//             review_id: i,
-//             posting_date: data.dates[i % data.dates.length],
-//             text: data.texts[i % data.texts.length],
-//             cleanliness: data.ratings[faker.random.number({
-//                 'min': 0,
-//                 'max': data.ratings.length - 1
-//             })],
-//             communication: data.ratings[faker.random.number({
-//                 'min': 0,
-//                 'max': data.ratings.length - 1
-//             })],
-//             check_in: data.ratings[faker.random.number({
-//                 'min': 0,
-//                 'max': data.ratings.length - 1
-//             })],
-//             accuracy: data.ratings[faker.random.number({
-//                 'min': 0,
-//                 'max': data.ratings.length - 1
-//             })],
-//             location: data.ratings[faker.random.number({
-//                 'min': 0,
-//                 'max': data.ratings.length - 1
-//             })],
-//             value: data.ratings[faker.random.number({
-//                 'min': 0,
-//                 'max': data.ratings.length - 1
-//             })],
-//             author_id: data.ids[i % data.ids.length],
-//             listing_id: data.ids[i % data.ids.length]
-//         });
-//     }
-//     reviewsWriter.end();
-//     console.log('generated reviews');
-// }
-
 const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
     writer.pipe(fs.createWriteStream(`csvData/postgresCsvData/${fileName}.csv`));
     var i = numOfRecords;
@@ -90,9 +23,6 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
                     address: dataArrays.addresses[i % dataArrays.addresses.length],
                     owner: dataArrays.owners[i % dataArrays.owners.length]
                 };
-                // data = {
-                //     listingsTest: 'listings'
-                // };
             } else if (fileName === 'customers') {
                 data = {
                     customer_id: i,
@@ -101,9 +31,6 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
                     avatar_url: 'http://placeimg.com/640/480',
                     listing_id: dataArrays.ids[i % dataArrays.ids.length]
                 };
-                // data = {
-                //     customersTest: 'customers'
-                // };
             } else if (fileName === 'reviews') {
                 data = {
                     review_id: i,
@@ -136,9 +63,6 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
                     author_id: dataArrays.ids[i % dataArrays.ids.length],
                     listing_id: dataArrays.ids[i % dataArrays.ids.length]
                 };
-                // data = {
-                //     reviewsTest: 'reviews'
-                // };
             }
             if (i === 0) {
                 // last time
@@ -155,7 +79,6 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
             writer.once('drain', write);
         }
     }
-    // writer.end();
 }
 
 async function dataGenerator() {
