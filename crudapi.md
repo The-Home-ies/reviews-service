@@ -46,7 +46,7 @@
       "address": "String",
       "reviews": [{
         "review": {
-          "reviews_id": "Number",
+          "review_id": "Number",
           "text": "String",
           "date": "String"
         },

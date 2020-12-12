@@ -35,7 +35,7 @@ CREATE TABLE customers (
 CREATE TABLE reviews (
     review_id SERIAL,
     posting_date DATE NOT NULL DEFAULT CURRENT_DATE,
-    text VARCHAR(500) NOT NULL,
+    text VARCHAR(50) NOT NULL,
     cleanliness INT,
     communication INT,
     check_in INT,
