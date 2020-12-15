@@ -74,13 +74,13 @@ app.post('/api/listings/:id/reviews', (request, response) => {
     });
 });
 
-var getCache = {};
+// var getCache = {};
 // GET all reviews for a listing by listing_id
 app.get('/api/listings/:id/reviews', (request, response) => {
   var id = request.params.id;
-  if (Object.keys(getCache).includes(`${id}`)) {
-    response.send(getCache[`${id}`]);
-  }
+  // if (Object.keys(getCache).includes(`${id}`)) {
+  //   response.send(getCache[`${id}`]);
+  // }
   
   var json = {};
   var query = `SELECT * FROM listings, customers, reviews WHERE listings.listing_id = ${id} AND author_id = ${id} AND customer_id = author_id`;
@@ -113,7 +113,7 @@ app.get('/api/listings/:id/reviews', (request, response) => {
       }
     })
     .then(() => {
-      getCache[`${id}`] = json;
+      // getCache[`${id}`] = json;
       response.send(json);
     })
     .catch(err => {
