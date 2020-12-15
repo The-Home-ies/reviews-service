@@ -1,7 +1,7 @@
 const { Pool, Client } = require('pg');
 const connectionString = 'postgresql://postgres:postgres@localhost:5432/listing_reviews';
 
-var query = 'SELECT * FROM listings WHERE listing_id = 10;';
+// var query = 'SELECT * FROM listings WHERE listing_id = 10;';
 
 // pool, callback
 const pool = new Pool({

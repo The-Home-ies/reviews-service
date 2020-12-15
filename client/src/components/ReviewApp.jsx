@@ -17,9 +17,9 @@ const ReviewApp = () => {
     .sort((a, b) => new Date(b.review.date) - new Date(a.review.date));
 
   if (!doneLoading) {
-    axios.get(`/api/review-listings/${id}/reviews`)
+    axios.get(`/api/listings/${id}/reviews`)
       .then((res) => {
-        setReviewData(dateSort(res.data[0].reviews));
+        setReviewData(dateSort(res.data.reviews));
       })
       .catch((err) => console.log(err));
     setDoneLoading(true);

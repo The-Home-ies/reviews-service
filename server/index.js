@@ -18,18 +18,17 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use('/:id', express.static(path.join(__dirname, '/../client/dist')));
 
-// // get all listings
-// app.get('/api/review-listings/reviews', listingController.getListings);
+// get all listings
+app.get('/api/review-listings/reviews', listingController.getListings);
 
-// // get a specific listing
-// app.get('/api/review-listings/:id/reviews', listingController.getOneListing);
+// get a specific listing
+app.get('/api/review-listings/:id/reviews', listingController.getOneListing);
 
 // POST a new review
 app.post('/api/listings/:id/reviews', (request, response) => {
   var id = request.params.id;
   var data = request.body;
 
-  // query customer_id column to find the highest id
   var customerIdQuery = `SELECT customer_id FROM customers order by customer_id desc limit 1`;
   var reviewIdQuery = `SELECT review_id FROM reviews order by review_id desc limit 1`;
   queries.pool
@@ -73,90 +72,17 @@ app.post('/api/listings/:id/reviews', (request, response) => {
       console.log('error querying customer.customer_id');
       console.log(err);
     });
-
-  // var listing;
-  // // get listing information
-  // queries.pool
-  //   .query(`SELECT * FROM listings WHERE listings.listing_id = ${id}`)
-  //   .then(res => {
-  //     listing = res.rows[0];
-  //     console.log(listing);
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-
-  // // query customer_id column to find the highest id
-  // var customerQuery = `SELECT customer_id FROM customers order by customer_id desc limit 1`;
-  // queries.pool
-  //   .query(customerQuery)
-  //   .then(res => {
-  //     var newCustomerId = Number(res.rows[0].customer_id) + 1;
-  //     var listingQuery = `SELECT listing_id FROM listings order by listing_id desc limit 1`;
-  //     queries.pool
-  //       .query(listingQuery)
-  //       .then(res => {
-  //         var newReviewId = Number(res.rows[0].review_id) + 1;
-  //         var queryText = `
-  //           WITH step_one AS (
-  //             INSERT INTO customers(customer_id, name, email, avatar_url, listing_id)
-  //             VALUES(${newCustomerId}, ${data.name}, ${data.email}, ${data.avatar_url}, ${id})
-  //           ),
-  //           WITH step_two AS (
-  //             INSERT INTO reviews(review_id, posting_date, text, cleanliness, communication, check_in, accuracy, location, value)
-  //             VALUES(${newReviewId}, ${data.date}, ${data.text}, ${data.ratings.cleanliness}, ${data.ratings.communication}, ${data.ratings.check_in}, ${data.ratings.accuracy}, ${data.ratings.location}, ${data.ratings.value})
-  //           )
-  //         `;
-  //         queries.pool
-  //           .query(queryText)
-  //           .then(res => {
-  //             console.log('inserted data into tables');
-  //           })
-  //           .catch(err => {
-  //             console.log(err);
-  //           }) ;
-  //       })
-  //     })
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   });
-
-  // res.send(data);
-
-  // var id = req.params.id;
-  // var data = req.body;
-  // console.log(data);
-  // // query the customers database to see get largest customer_id
-  // queries.pool
-  //   .query(`SELECT COUNT(customer_id) FROM customers;`)
-  //   .then(res => {
-  //     var newId = Number(res.rows[0].count) + 1;
-  //     var text = `INSERT INTO customers(customer_id, name, email, avatar_url, listing_id) VALUES($1, $2, $3, $4, $5) RETURNING *`;
-  //     var values = [newId, data.name, data.email, data.avatar_url, data.listing_id];
-  //     queries.pool
-  //       .query(text, values)
-  //       .then(res => {
-  //         console.log('successfully inserted customer into database');
-  //         var text = `INSERT INTO reviews(review_id, posting_date, text, cleanliness, communication, check_in, accuracy, location, value, author_id, listing_id) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`;
-  //         var values = [];
-  //         queries.pool
-  //           .query()
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
-  // res.send(id);
 });
 
+var getCache = {};
 // GET all reviews for a listing by listing_id
-app.get('/api/listings/:id/reviews', (req, res) => {
+app.get('/api/listings/:id/reviews', (request, response) => {
+  var id = request.params.id;
+  if (Object.keys(getCache).includes(`${id}`)) {
+    response.send(getCache[`${id}`]);
+  }
+  
   var json = {};
-  var id = req.params.id;
   var query = `SELECT * FROM listings, customers, reviews WHERE listings.listing_id = ${id} AND author_id = ${id} AND customer_id = author_id`;
   queries.pool
     .query(query)
@@ -187,7 +113,8 @@ app.get('/api/listings/:id/reviews', (req, res) => {
       }
     })
     .then(() => {
-      res.send(json);
+      getCache[`${id}`] = json;
+      response.send(json);
     })
     .catch(err => {
       console.log(err);

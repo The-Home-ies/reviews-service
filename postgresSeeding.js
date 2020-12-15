@@ -7,6 +7,12 @@ const faker = require('faker');
 const debug = require('debug')('app:gen:psql');
 const dataArrays = require('./dataArrays.js');
 
+// console.log('[');
+// for (let i = 0; i < 100000000; i++) {
+//     console.log(`${i}, `);
+// }
+// console.log('];');
+
 const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
     writer.pipe(fs.createWriteStream(`csvData/postgresCsvData/${fileName}.csv`));
     var i;
@@ -88,22 +94,22 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
 
 async function dataGenerator() {
     debug('start');
-    // await writeOneMillionTimes(listingsWriter, {}, 'utf8', (err) => {
-    //     if (err) {
-    //         console.log(err.message);
-    //     } else {
-    //         console.log('successfully wrote listings');
-    //         listingsWriter.end();
-    //     }
-    // }, 'listings');
-    // await writeOneMillionTimes(customersWriter, {}, 'utf8', (err) => {
-    //     if (err) {
-    //         console.log(err.message);
-    //     } else {
-    //         console.log('successfully wrote customers');
-    //         customersWriter.end();
-    //     }
-    // }, 'customers');
+    await writeOneMillionTimes(listingsWriter, {}, 'utf8', (err) => {
+        if (err) {
+            console.log(err.message);
+        } else {
+            console.log('successfully wrote listings');
+            listingsWriter.end();
+        }
+    }, 'listings');
+    await writeOneMillionTimes(customersWriter, {}, 'utf8', (err) => {
+        if (err) {
+            console.log(err.message);
+        } else {
+            console.log('successfully wrote customers');
+            customersWriter.end();
+        }
+    }, 'customers');
     await writeOneMillionTimes(reviewsWriter, {}, 'utf8', (err) => {
         if (err) {
             console.log(err.message);
