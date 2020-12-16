@@ -21,7 +21,7 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
     } else if (fileName === 'customers') {
         i = 10000000;
     } else if (fileName === 'reviews') {
-        i = 100000000;
+        i = 50000000;
     }
     write();
     function write () {
@@ -94,22 +94,22 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
 
 async function dataGenerator() {
     debug('start');
-    await writeOneMillionTimes(listingsWriter, {}, 'utf8', (err) => {
-        if (err) {
-            console.log(err.message);
-        } else {
-            console.log('successfully wrote listings');
-            listingsWriter.end();
-        }
-    }, 'listings');
-    await writeOneMillionTimes(customersWriter, {}, 'utf8', (err) => {
-        if (err) {
-            console.log(err.message);
-        } else {
-            console.log('successfully wrote customers');
-            customersWriter.end();
-        }
-    }, 'customers');
+    // await writeOneMillionTimes(listingsWriter, {}, 'utf8', (err) => {
+    //     if (err) {
+    //         console.log(err.message);
+    //     } else {
+    //         console.log('successfully wrote listings');
+    //         listingsWriter.end();
+    //     }
+    // }, 'listings');
+    // await writeOneMillionTimes(customersWriter, {}, 'utf8', (err) => {
+    //     if (err) {
+    //         console.log(err.message);
+    //     } else {
+    //         console.log('successfully wrote customers');
+    //         customersWriter.end();
+    //     }
+    // }, 'customers');
     await writeOneMillionTimes(reviewsWriter, {}, 'utf8', (err) => {
         if (err) {
             console.log(err.message);
