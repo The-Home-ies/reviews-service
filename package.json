@@ -10,7 +10,7 @@
   },
   "scripts": {
     "seed": "node seed.js",
-    "start": "node server/index.js",
+    "start": "nodemon server/index.js",
     "react-dev": "webpack",
     "test": "jest"
   },
