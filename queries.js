@@ -1,12 +1,20 @@
 const { Pool, Client } = require('pg');
-const connectionString = 'postgresql://postgres:postgres@ec2-54-67-105-35.us-west-1.compute.amazonaws.com:5432/listing_reviews';
+// const connectionString = 'postgresql://postgres:postgres@ec2-54-67-105-35.us-west-1.compute.amazonaws.com:5432/listing_reviews';
 
 // var query = 'SELECT * FROM listings WHERE listing_id = 10;';
 
-// pool, callback
 const pool = new Pool({
-    connectionString,
+    user: 'postgres',
+    host: 'ec2-54-67-105-35.us-west-1.compute.amazonaws.com',
+    database: 'listing_reviews',
+    password: 'postgres',
+    port: 5432,
 });
+
+// pool, callback
+// const pool = new Pool({
+//     connectionString,
+// });
 
 // pool.query(query, (err, res) => {
 //     if (err) {
@@ -18,9 +26,9 @@ const pool = new Pool({
 // });
 
 // client, promise
-const client = new Client({
-    connectionString,
-});
+// const client = new Client({
+//     connectionString,
+// });
 
 // client.connect();
 
@@ -34,6 +42,6 @@ const client = new Client({
 //     });
 
 module.exports.pool = pool;
-module.exports.client = client;
+// module.exports.client = client;
 
 // /var/lib/pgsql/data
