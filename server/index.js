@@ -16,13 +16,6 @@ mongoose.connect('mongodb://localhost/FEC', { useNewUrlParser: true, useUnifiedT
 
 app.use(morgan('dev'));
 app.use(express.json());
-app.use('/:id', express.static(path.join(__dirname, '/../client/dist')));
-
-// get all listings
-app.get('/api/review-listings/reviews', listingController.getListings);
-
-// get a specific listing
-app.get('/api/review-listings/:id/reviews', listingController.getOneListing);
 
 // loader file
 app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (req, res) => {
@@ -34,6 +27,14 @@ app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (req, res) => {
     }
   });
 });
+
+app.use('/:id', express.static(path.join(__dirname, '/../client/dist')));
+
+// get all listings
+app.get('/api/review-listings/reviews', listingController.getListings);
+
+// get a specific listing
+app.get('/api/review-listings/:id/reviews', listingController.getOneListing);
 
 // POST a new review
 app.post('/api/listings/:id/reviews', (request, response) => {
