@@ -15,19 +15,13 @@ const app = express();
 mongoose.connect('mongodb://localhost/FEC', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('dev'));
-app.use(express.json());
 
 // loader file
 app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (req, res) => {
-  res.sendFile('../loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (err) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('sent file');
-    }
-  });
+  res.sendFile(path.join(__dirname, '../loaderio-f99fc3126e9877d83f498f8ed9e11443.txt'));
 });
 
+app.use(express.json());
 app.use('/:id', express.static(path.join(__dirname, '/../client/dist')));
 
 // get all listings
