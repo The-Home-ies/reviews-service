@@ -25,7 +25,15 @@ app.get('/api/review-listings/reviews', listingController.getListings);
 app.get('/api/review-listings/:id/reviews', listingController.getOneListing);
 
 // loader file
-app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (req, res) => res.sendFile('../loaderio-f99fc3126e9877d83f498f8ed9e11443.txt'));
+app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (req, res) => {
+  res.sendFile('../loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (err) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('sent file');
+    }
+  });
+});
 
 // POST a new review
 app.post('/api/listings/:id/reviews', (request, response) => {
