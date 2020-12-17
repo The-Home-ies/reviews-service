@@ -1,5 +1,5 @@
 const { Pool, Client } = require('pg');
-const connectionString = 'postgresql://postgres:postgres@localhost:5432/listing_reviews';
+const connectionString = 'postgresql://postgres:postgres@ec2-54-67-105-35.us-west-1.compute.amazonaws.com:5432/listing_reviews';
 
 // var query = 'SELECT * FROM listings WHERE listing_id = 10;';
 
