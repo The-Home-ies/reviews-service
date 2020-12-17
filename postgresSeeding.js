@@ -21,7 +21,7 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
     } else if (fileName === 'customers') {
         i = 10000000;
     } else if (fileName === 'reviews') {
-        i = 50000000;
+        i = 20000000;
     }
     write();
     function write () {
@@ -39,7 +39,7 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
                     customer_id: i,
                     name: dataArrays.customers[i % dataArrays.customers.length],
                     email: dataArrays.emails[i % dataArrays.emails.length],
-                    avatar_url: 'http://placeimg.com/640',
+                    avatar_url: 'http://placeimg.com/640/480',
                     listing_id: dataArrays.ids[i % dataArrays.ids.length]
                 };
             } else if (fileName === 'reviews') {
@@ -94,22 +94,22 @@ const writeOneMillionTimes = (writer, data, encoding, callback, fileName) => {
 
 async function dataGenerator() {
     debug('start');
-    // await writeOneMillionTimes(listingsWriter, {}, 'utf8', (err) => {
-    //     if (err) {
-    //         console.log(err.message);
-    //     } else {
-    //         console.log('successfully wrote listings');
-    //         listingsWriter.end();
-    //     }
-    // }, 'listings');
-    // await writeOneMillionTimes(customersWriter, {}, 'utf8', (err) => {
-    //     if (err) {
-    //         console.log(err.message);
-    //     } else {
-    //         console.log('successfully wrote customers');
-    //         customersWriter.end();
-    //     }
-    // }, 'customers');
+    await writeOneMillionTimes(listingsWriter, {}, 'utf8', (err) => {
+        if (err) {
+            console.log(err.message);
+        } else {
+            console.log('successfully wrote listings');
+            listingsWriter.end();
+        }
+    }, 'listings');
+    await writeOneMillionTimes(customersWriter, {}, 'utf8', (err) => {
+        if (err) {
+            console.log(err.message);
+        } else {
+            console.log('successfully wrote customers');
+            customersWriter.end();
+        }
+    }, 'customers');
     await writeOneMillionTimes(reviewsWriter, {}, 'utf8', (err) => {
         if (err) {
             console.log(err.message);
