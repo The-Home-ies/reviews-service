@@ -14,7 +14,7 @@ const app = express();
 
 mongoose.connect('mongodb://localhost/FEC', { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 // loader file
 app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443', (req, res) => {
