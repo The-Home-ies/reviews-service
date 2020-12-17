@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/FEC', { useNewUrlParser: true, useUnifiedT
 app.use(morgan('dev'));
 
 // loader file
-app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443.txt', (req, res) => {
+app.get('/loaderio-f99fc3126e9877d83f498f8ed9e11443', (req, res) => {
   res.sendFile(path.join(__dirname, '../loaderio-f99fc3126e9877d83f498f8ed9e11443.txt'));
 });
 
